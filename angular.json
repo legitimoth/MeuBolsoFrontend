@@ -32,8 +32,14 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
