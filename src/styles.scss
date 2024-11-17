@@ -78,8 +78,8 @@ app-root {
 }
 
 h1 {
-  font-size: 1.2rem;
-  color: $app-text-color;
+  font-size: .8rem;
+  color: $app-cor-preto;
   font-family: 'Poppins-Medium', serif;
 }
 
@@ -98,13 +98,65 @@ input {
   box-shadow: 0 0 0 0.25rem rgba(255, 230, 156, 0.5); /* Usa a cor #ffe69c com transparência */
 }
 
-header {
-  @extend .row;
-  padding: calc(var(--bs-gutter-x) * 0.5);
-  background-color: $app-yellow;
-  margin-bottom: 2rem;
+.app-btn {
+  border-radius: 5px 0 5px 0;
+  background-color: $app-cor-amarelo;
+  border: 2px solid $app-cor-amarelo;
+  color: $app-cor-preto;
+  font-weight: 500;
 
-  h1 {
-    margin: 0;
+  &:hover {
+    background-color: lighten($app-cor-amarelo, 15%);
+    border-color: $app-cor-amarelo;
+    color: lighten($app-cor-preto, 7%);
   }
+
+  &:disabled {
+    @extend .text-muted;
+    background-color: $app-cor-amarelo;
+    border-color: $app-cor-amarelo;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &.muted {
+    background-color: transparent; /* Fundo transparente */
+    border: 2px solid $app-cor-cinza; /* Borda cinza suave */
+    color: $app-cor-preto;
+
+    &:hover {
+      background-color: $app-cor-cinza; /* Fundo amarelo suave no hover */
+      border-color: $app-cor-cinza; /* Ajusta a borda no hover */
+      color: $app-cor-preto;
+    }
+
+    &:active {
+      background-color: #ffd74d; /* Amarelo mais escuro ao clicar */
+      border-color: #ffd74d;
+      color: #222; /* Texto mais escuro */
+    }
+
+    &:disabled {
+      background-color: transparent;
+      border-color: #ccc; /* Borda cinza claro */
+      color: #aaa; /* Texto desabilitado */
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+}
+
+.app-btn-muted {
+  background-color: transparent; /* Fundo transparente */
+  border: 2px solid #999999; /* Borda cinza suave */
+  color: #333; /* Texto cinza escuro */
+  border-radius: 0; /* Botão quadrado */
+  transition: all 0.3s ease; /* Animação suave ao interagir */
+}
+
+.app-btn-muted:hover {
+  background-color: #ffe69c; /* Fundo amarelo no hover */
+  border-color: #ffe69c; /* Borda amarela no hover */
+  color: #333; /* Texto permanece cinza escuro */
 }
