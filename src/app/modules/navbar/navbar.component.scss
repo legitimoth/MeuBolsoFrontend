@@ -1,0 +1,9 @@
+@import "variables";
+nav {
+  height: 50px;
+  background-color: $app-cor-amarelo;
+}
+.nav-link {
+  color: $app-cor-preto;
+  cursor: pointer;
+}
