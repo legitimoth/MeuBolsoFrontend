@@ -1,45 +1,47 @@
 <app-header></app-header>
 
-<form class="row">
+<form [formGroup]="cartaoForm" class="row">
   <div class="col-9">
-    <label for="nome" class="form-label">NOME</label>
-    <input id="nome" type="text" class="form-control" placeholder="Nu" aria-label="Nome">
+    <label for="nome" class="form-label required">NOME</label>
+    <input formControlName="nome" id="nome" type="text" class="form-control" placeholder="Nu" aria-label="Nome" maxlength="27" [ngClass]="{ 'is-invalid': cartaoForm.get('nome')?.invalid && listarErros }">
   </div>
   <div class="col-3">
-    <label for="final" class="form-label">FINAL</label>
-    <input id="final" type="text" class="form-control" placeholder="1234" aria-label="Final">
+    <label for="final" class="form-label required">FINAL</label>
+    <input formControlName="final" id="final" type="text" class="form-control" placeholder="1234" aria-label="Final" maxlength="4" [ngClass]="{ 'is-invalid': cartaoForm.get('final')?.invalid && listarErros }">
     <small class="form-text text-muted text-end d-block">4 últimos dígitos</small>
   </div>
   <div class="mt-3 d-flex justify-content-end gap-2">
-    <button class="btn app-btn muted btn-sm" type="button">
+    <button class="btn app-btn app-btn-lg app-btn-muted btn-sm" type="button" (click)="limpar()">
       <i class="bi bi-eraser"></i>
     </button>
-    <button class="btn app-btn btn-sm" type="button">
+    <button class="btn app-btn app-btn-lg btn-sm" type="button" (click)="salvar()">
       <i class="bi bi-check-lg"></i>
     </button>
   </div>
 </form>
 
-<div class="lista row my-3">
-  <div class="col-6 mt-1 d-flex align-items-center">Banco Inter Mastercard</div>
-  <div class="col mt-1 d-flex align-items-center justify-content-center">0987</div>
-  <div class="col mt-1 d-flex justify-content-end gap-2">
-    <button class="btn app-btn muted btn-sm" type="button">
-      <i class="bi bi-trash3"></i>
-    </button>
-    <button class="btn app-btn btn-sm" type="button">
-      <i class="bi bi-pen"></i>
-    </button>
-  </div>
+<div *ngIf="listarErros && cartaoForm.invalid" id="lista-erros">
+  <p class="text-danger"><strong><i class="bi bi-chat"></i> Informações inválidas:</strong></p>
+  <ul>
+    <li *ngIf="cartaoForm.get('nome')?.errors?.['required']"><strong><i>Nome</i></strong> é obrigatório.</li>
+    <li *ngIf="cartaoForm.get('nome')?.errors?.['maxLength']"><strong><i>Nome</i></strong> não pode ter mais de 27 caracteres.</li>
+    <li *ngIf="cartaoForm.get('final')?.errors?.['required']"><strong><i>Final</i></strong> é obrigatório.</li>
+    <li *ngIf="cartaoForm.get('final')?.errors?.['pattern']"><strong><i>Final</i></strong> deve conter exatamente 4 dígitos.</li>
+  </ul>
 </div>
-<div class="lista row my-3">
-  <div class="col-6 mt-1 d-flex align-items-center">Itaucard Click Visa Platinum</div>
-  <div class="col mt-1 d-flex align-items-center justify-content-center">5643</div>
+
+<div *ngFor="let cartao of cartoes" class="lista row my-3">
+  <div class="col-6 mt-1 d-flex align-items-center">
+    {{ cartao.nome }}
+  </div>
+  <div class="col mt-1 d-flex align-items-center justify-content-center">
+    {{ cartao.final }}
+  </div>
   <div class="col mt-1 d-flex justify-content-end gap-2">
-    <button class="btn app-btn muted btn-sm" type="button">
+    <button class="btn app-btn app-btn-muted btn-sm" type="button" (click)="excluir(cartao.id)">
       <i class="bi bi-trash3"></i>
     </button>
-    <button class="btn app-btn btn-sm" type="button">
+    <button class="btn app-btn btn-sm" type="button" (click)="editar(cartao.id)">
       <i class="bi bi-pen"></i>
     </button>
   </div>

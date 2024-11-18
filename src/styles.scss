@@ -67,14 +67,19 @@
 //##############################//
 //#           STYLES           #//
 //##############################//
+
 body, html {
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
 }
 
+div, p, ul, li {
+  font-size: .8rem;
+}
+
 app-root {
-  padding-bottom: 60px; /* Espaço para evitar sobreposição com a navbar fixa */
+  padding-bottom: 60px;
 }
 
 h1 {
@@ -93,9 +98,18 @@ input {
   font-family: 'Poppins-Light', serif;
 }
 
+small {
+  font-size: .6rem !important;
+}
+
+label.required::after {
+  content: " *";
+  color: red;
+}
+
 .form-control:focus {
-  border-color: #ffe69c; /* Define a nova cor da borda */
-  box-shadow: 0 0 0 0.25rem rgba(255, 230, 156, 0.5); /* Usa a cor #ffe69c com transparência */
+  border-color: #ffe69c;
+  box-shadow: 0 0 0 0.25rem rgba(255, 230, 156, 0.5);
 }
 
 .app-btn {
@@ -119,44 +133,33 @@ input {
     opacity: 0.6;
   }
 
-  &.muted {
-    background-color: transparent; /* Fundo transparente */
-    border: 2px solid $app-cor-cinza; /* Borda cinza suave */
+  &.app-btn-muted {
+    background-color: transparent;
+    border: 2px solid $app-cor-cinza;
     color: $app-cor-preto;
 
     &:hover {
-      background-color: $app-cor-cinza; /* Fundo amarelo suave no hover */
-      border-color: $app-cor-cinza; /* Ajusta a borda no hover */
+      background-color: $app-cor-cinza;
+      border-color: $app-cor-cinza;
       color: $app-cor-preto;
     }
 
     &:active {
-      background-color: #ffd74d; /* Amarelo mais escuro ao clicar */
+      background-color: #ffd74d;
       border-color: #ffd74d;
-      color: #222; /* Texto mais escuro */
+      color: #222;
     }
 
     &:disabled {
       background-color: transparent;
-      border-color: #ccc; /* Borda cinza claro */
-      color: #aaa; /* Texto desabilitado */
+      border-color: #ccc;
+      color: #aaa;
       cursor: not-allowed;
       opacity: 0.6;
     }
   }
 
-}
-
-.app-btn-muted {
-  background-color: transparent; /* Fundo transparente */
-  border: 2px solid #999999; /* Borda cinza suave */
-  color: #333; /* Texto cinza escuro */
-  border-radius: 0; /* Botão quadrado */
-  transition: all 0.3s ease; /* Animação suave ao interagir */
-}
-
-.app-btn-muted:hover {
-  background-color: #ffe69c; /* Fundo amarelo no hover */
-  border-color: #ffe69c; /* Borda amarela no hover */
-  color: #333; /* Texto permanece cinza escuro */
+  &.app-btn-lg {
+    min-width: 70px;
+  }
 }
