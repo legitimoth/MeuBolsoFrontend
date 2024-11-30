@@ -1,12 +1,13 @@
 //##############################//
 //#          IMPORTS           #//
 //##############################//
+@use "sass:color";
 
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
+@use "bootstrap/scss/bootstrap";
 
 // App
-@import "app/scss/_variables.scss";
+@use "app/scss/_variables.scss" as var;
+
 
 //##############################//
 //#           FONTS            #//
@@ -84,7 +85,7 @@ app-root {
 
 h1 {
   font-size: .8rem;
-  color: $app-cor-preto;
+  color: var.$app-cor-preto;
   font-family: 'Poppins-Medium', serif;
 }
 
@@ -114,34 +115,34 @@ label.required::after {
 
 .app-btn {
   border-radius: 5px 0 5px 0;
-  background-color: $app-cor-amarelo;
-  border: 2px solid $app-cor-amarelo;
-  color: $app-cor-preto;
+  background-color: var.$app-cor-amarelo;
+  border: 2px solid var.$app-cor-amarelo;
+  color: var.$app-cor-preto;
   font-weight: 500;
 
   &:hover {
-    background-color: lighten($app-cor-amarelo, 15%);
-    border-color: $app-cor-amarelo;
-    color: lighten($app-cor-preto, 7%);
+    background-color: color.scale(var.$app-cor-amarelo, $lightness: 15%); //lighten($app-cor-amarelo, 15%);
+    border-color: var.$app-cor-amarelo;
+    color: color.scale(var.$app-cor-preto, $lightness: 7%); //lighten($app-cor-preto, 7%);
   }
 
   &:disabled {
     @extend .text-muted;
-    background-color: $app-cor-amarelo;
-    border-color: $app-cor-amarelo;
+    background-color: var.$app-cor-amarelo;
+    border-color: var.$app-cor-amarelo;
     cursor: not-allowed;
     opacity: 0.6;
   }
 
   &.app-btn-muted {
     background-color: transparent;
-    border: 2px solid $app-cor-cinza;
-    color: $app-cor-preto;
+    border: 2px solid var.$app-cor-cinza;
+    color: var.$app-cor-preto;
 
     &:hover {
-      background-color: $app-cor-cinza;
-      border-color: $app-cor-cinza;
-      color: $app-cor-preto;
+      background-color: var.$app-cor-cinza;
+      border-color: var.$app-cor-cinza;
+      color: var.$app-cor-preto;
     }
 
     &:active {

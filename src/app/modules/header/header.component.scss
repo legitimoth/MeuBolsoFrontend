@@ -1,8 +1,8 @@
-@import "_variables.scss";
+@use "_variables.scss" as var;
 
 header {
   padding: calc(var(--bs-gutter-x) * 0.5);
-  background-color: $app-cor-amarelo;
+  background-color: var.$app-cor-amarelo;
   margin-bottom: 2rem;
 
   h1 {

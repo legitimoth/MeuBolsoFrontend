@@ -5,15 +5,14 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-cartao',
-  standalone: true,
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    ReactiveFormsModule
-  ],
-  templateUrl: './cartao.component.html',
-  styleUrl: './cartao.component.scss'
+    selector: 'app-cartao',
+    imports: [
+        CommonModule,
+        HeaderComponent,
+        ReactiveFormsModule
+    ],
+    templateUrl: './cartao.component.html',
+    styleUrl: './cartao.component.scss'
 })
 export class CartaoComponent {
   cartoes : Cartao[] = [
