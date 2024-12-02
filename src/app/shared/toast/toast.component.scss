@@ -1,0 +1,15 @@
+.toast {
+  cursor: pointer;
+
+  &.bg-success {
+    background-color: #198754 !important;
+  }
+
+  &.bg-danger {
+    background-color: #dc3545 !important;
+  }
+
+  &.bg-info {
+    background-color: #0dcaf0 !important;
+  }
+}

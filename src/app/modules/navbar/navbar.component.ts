@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ConfirmModalComponent} from '../../shared/confirm-modal/confirm-modal.component';
-import {AuthService} from '../auth/auth-service.service';
+import {AuthService} from '../auth/auth.service';
+import {User} from '@auth0/auth0-angular';
 
 @Component({
     selector: 'app-navbar',
@@ -13,13 +14,19 @@ import {AuthService} from '../auth/auth-service.service';
     styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) {}
+  user: User | null | undefined;
+
+  constructor(private authService: AuthService) {
+    authService.user.subscribe(user => {
+      this.user = user;
+    })
+  }
 
   logout(): void {
     this.authService.logout();
   }
 
   logoutMessage(): string {
-    return `Olá, ${this.authService.user?.name}. Você realmente deseja sair?`;
+    return `Olá, ${this.user?.name}. Você realmente deseja sair?`;
   }
 }

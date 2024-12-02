@@ -1,18 +1,17 @@
 import { CanActivateFn } from '@angular/router';
-import {tap} from 'rxjs';
 import {inject} from '@angular/core';
-import {AuthService} from '@auth0/auth0-angular';
+import {tap} from 'rxjs';
+import {AuthService} from './auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
 
-  return auth.isAuthenticated$.pipe(
-    tap(isAuthenticated => {
+  return auth.isAuthenticated.pipe(
+    tap(async isAuthenticated => {
       if (!isAuthenticated) {
-        auth.loginWithRedirect({
-          appState: { target: state.url }, // Salva a URL original para redirecionar após login
-        });
+        auth.login();
       }
+      await auth.checkAndUpdateUser()
     })
   );
 };

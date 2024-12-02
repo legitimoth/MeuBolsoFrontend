@@ -5,5 +5,5 @@ import {authGuard} from './modules/auth/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: '/cartoes', pathMatch: 'full' },
   { path: 'cartoes', component: CartaoComponent, canActivate: [authGuard] },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '/cartoes' },
 ];
