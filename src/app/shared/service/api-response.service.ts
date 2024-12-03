@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { firstValueFrom, throwError } from 'rxjs';
-import { ToastComponent } from '../toast/toast.component';
+import {ToastService} from '../toast/toast.service';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -16,7 +16,7 @@ interface ApiResponse<T> {
 export class ApiService {
   private readonly baseUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient, private toast: ToastComponent) {}
+  constructor(private http: HttpClient, private toast: ToastService) {}
 
   private async handleRequest<T>(
     method: 'get' | 'post',
@@ -45,8 +45,8 @@ export class ApiService {
         )
       );
     } catch (error) {
-      this.toast.error('Ocorreu um erro inesperado');
-      console.error(`Erro ao fazer o ${method.toUpperCase()} em ${endpoint}:`, error);
+      const msg = `Erro ao fazer o ${method.toUpperCase()} em ${endpoint}`;
+      this.toast.error(msg);
       throw error;
     }
   }
