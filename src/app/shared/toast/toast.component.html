@@ -1,26 +1,27 @@
-<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+<div class="toast-container">
   <div
-    class="toast show"
     *ngFor="let toast of toasts; let i = index"
-    [class.bg-success]="toast.type === 'success'"
-    [class.bg-danger]="toast.type === 'error'"
-    [class.bg-info]="toast.type === 'info'"
-    [class.text-light]="toast.type !== 'info'"
-    (click)="removeToast(i)"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
+    class="app-toast {{ toast.type }} animate__animated"
+    [ngClass]="{
+      'animate__slideInRight': !toast.closing,
+      'animate__slideOutRight': toast.closing
+    }"
   >
-    <div class="d-flex">
-      <div class="toast-body">
-        {{ toast.message }}
-      </div>
-      <button
-        type="button"
-        class="btn-close btn-close-white me-2 m-auto"
-        aria-label="Close"
-        (click)="removeToast(i)"
-      ></button>
+    <div class="app-toast-header">
+      <span>
+        <i [ngClass]="toastIcons[toast.type]"></i> {{ toast.type }}
+      </span>
+      <span>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="removeToast(i)"
+        ></button>
+      </span>
+    </div>
+    <div class="app-toast-body">
+      {{ toast.message }}
     </div>
   </div>
 </div>

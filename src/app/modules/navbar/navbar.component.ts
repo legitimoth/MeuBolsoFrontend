@@ -17,9 +17,7 @@ export class NavbarComponent {
   user: User | null | undefined;
 
   constructor(private authService: AuthService) {
-    authService.user.subscribe(user => {
-      this.user = user;
-    })
+    authService.user$.subscribe(user => this.user = user);
   }
 
   logout(): void {

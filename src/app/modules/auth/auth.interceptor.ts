@@ -1,12 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import {AuthService} from './auth.service';
-import {switchMap} from 'rxjs';
+import { AuthService } from './auth.service';
+import { switchMap } from 'rxjs';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
-  return authService.token.pipe(
+  return authService.getToken().pipe(
     switchMap((token) => {
       if (token) {
         const cloned = req.clone({
@@ -16,7 +16,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
         });
         return next(cloned);
       }
-      return next(req);
+      return next(req); // Continua mesmo sem token
     })
   );
 };

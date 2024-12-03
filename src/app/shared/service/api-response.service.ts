@@ -31,6 +31,7 @@ export class ApiService {
       return await firstValueFrom(
         request.pipe(
           map((response) => {
+            console.log(response);
             if (!response.success) {
               this.toast.error(response.errors.join(', '));
               throw new Error(response.errors.join(', '));
@@ -44,6 +45,7 @@ export class ApiService {
         )
       );
     } catch (error) {
+      this.toast.error('Ocorreu um erro inesperado');
       console.error(`Erro ao fazer o ${method.toUpperCase()} em ${endpoint}:`, error);
       throw error;
     }
