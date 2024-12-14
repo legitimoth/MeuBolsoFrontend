@@ -38,7 +38,6 @@ export class CartaoComponent {
   async ngOnInit() {
     try {
       this.cartoes = await this.api.get<Cartao[]>(this.endpoint);
-      console.log('Cartões carregados:', this.cartoes);
     } catch (error) {
       console.error('Erro ao carregar cartões:', error);
     }

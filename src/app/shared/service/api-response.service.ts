@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { firstValueFrom, throwError } from 'rxjs';
+import {firstValueFrom, Observable, throwError} from 'rxjs';
 import {ToastService} from '../toast/toast.service';
 
 interface ApiResponse<T> {
@@ -18,20 +18,11 @@ export class ApiService {
 
   constructor(private http: HttpClient, private toast: ToastService) {}
 
-  private async handleRequest<T>(
-    method: 'get' | 'post',
-    endpoint: string,
-    payload?: any
-  ): Promise<T> {
+  private async handleRequest<T>(request: Observable<ApiResponse<T>>): Promise<T> {
     try {
-      const request = method === 'get'
-        ? this.http.get<ApiResponse<T>>(`${this.baseUrl}/${endpoint}`)
-        : this.http.post<ApiResponse<T>>(`${this.baseUrl}/${endpoint}`, payload);
-
       return await firstValueFrom(
         request.pipe(
           map((response) => {
-            console.log(response);
             if (!response.success) {
               this.toast.error(response.errors.join(', '));
               throw new Error(response.errors.join(', '));
@@ -45,17 +36,18 @@ export class ApiService {
         )
       );
     } catch (error) {
-      const msg = `Erro ao fazer o ${method.toUpperCase()} em ${endpoint}`;
-      this.toast.error(msg);
+      this.toast.error('Erro ao realizar a requisição.');
       throw error;
     }
   }
 
   async get<T>(endpoint: string): Promise<T> {
-    return this.handleRequest<T>('get', endpoint);
+    const request = this.http.get<ApiResponse<T>>(`${this.baseUrl}/${endpoint}`);
+    return this.handleRequest<T>(request);
   }
 
   async post<T>(endpoint: string, payload: T): Promise<T> {
-    return this.handleRequest<T>('post', endpoint, payload);
+    const request = this.http.post<ApiResponse<T>>(`${this.baseUrl}/${endpoint}`, payload);
+    return this.handleRequest<T>(request);
   }
 }
