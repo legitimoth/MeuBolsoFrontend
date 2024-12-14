@@ -27,6 +27,7 @@ export class ApiService {
               this.toast.error(response.errors.join(', '));
               throw new Error(response.errors.join(', '));
             }
+
             return response.data;
           }),
           catchError((error) => {
