@@ -3,6 +3,7 @@ import {HeaderComponent} from '../header/header.component';
 import {Cartao} from './interface/Cartao';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ApiService} from '../../shared/service/api-response.service';
 
 @Component({
     selector: 'app-cartao',
@@ -15,6 +16,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
     styleUrl: './cartao.component.scss'
 })
 export class CartaoComponent {
+  endpoint: string = "cartoes";
+
   cartoes : Cartao[] = [
     { id: 1, nome: 'Banco Inter Mastercard', final: '0987' },
     { id: 2, nome: 'Itaucard Click Visa Platinum', final: '5643' },
@@ -25,11 +28,19 @@ export class CartaoComponent {
   cartaoEmEdicao: Cartao | null = null;
   listarErros: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private api: ApiService) {
     this.cartaoForm = this.fb.group({
       nome: ['', [Validators.required, Validators.maxLength(27)]],
       final: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]]
     });
+  }
+
+  async ngOnInit() {
+    try {
+      this.cartoes = await this.api.get<Cartao[]>(this.endpoint);
+    } catch (error) {
+      console.error('Erro ao carregar cartões:', error);
+    }
   }
 
   editar(id: number): void {

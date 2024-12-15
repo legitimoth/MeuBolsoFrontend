@@ -1,0 +1,39 @@
+<div class="confirm-modal-backdrop" *ngIf="isModalVisible"></div>
+
+<div
+  class="confirm-modal d-flex justify-content-center align-items-center"
+  *ngIf="isModalVisible"
+  role="dialog"
+  aria-labelledby="confirmModalTitle"
+  aria-describedby="confirmModalBody"
+  tabindex="0"
+  (keydown.escape)="closeModal()"
+  (click)="closeModal()"
+>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-11 col-md-8 col-lg-6 confirm-modal-content">
+        <div class="confirm-modal-header">
+          <h1 class="confirm-modal-title" id="confirmModalTitle">{{ title }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="confirm-modal-body" id="confirmModalBody">
+          {{ message }}
+        </div>
+        <div class="confirm-modal-footer pt-2">
+          <button class="btn app-btn app-btn-lg app-btn-muted btn-sm me-2" (click)="closeModal()">
+            <i class="bi bi-x"></i>
+          </button>
+          <button class="btn app-btn app-btn-lg btn-sm" (click)="confirmAction()">
+            <i class="bi bi-check-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -68,6 +68,6 @@ ng serve
 
 ## 🗒️ Versionamento:
 
-- **Angular CLI:** 18.2.11
+- **Angular CLI:** 19.0.1
 - **Node:** 22.11.0
-- **Package Manager:** npm 10.9.0
+- **Package Manager:** npm 10.9.1

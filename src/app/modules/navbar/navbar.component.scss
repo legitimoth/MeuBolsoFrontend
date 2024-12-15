@@ -7,3 +7,7 @@ nav {
   color: var.$app-cor-preto;
   cursor: pointer;
 }
+
+.dropdown-menu {
+  transform: translateX(-35%); /* Ajuste fino para alinhar melhor */
+}

@@ -16,9 +16,15 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/tags">
-        <i class="bi bi-tags"></i>
+      <a class="nav-link" (click)="confirmModal.openModal()">
+        <i class="bi bi-box-arrow-left"></i>
       </a>
     </li>
   </ul>
 </nav>
+<app-confirm-modal
+  #confirmModal
+  [title]="'Confirmar Logout'"
+  [message]="logoutMessage()"
+  (onConfirm)="logout()"
+></app-confirm-modal>

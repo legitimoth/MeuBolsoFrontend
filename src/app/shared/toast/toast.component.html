@@ -1,0 +1,27 @@
+<div class="toast-container">
+  <div
+    *ngFor="let toast of toasts; let i = index"
+    class="app-toast {{ toast.type }} animate__animated"
+    [ngClass]="{
+      'animate__slideInRight': !toast.closing,
+      'animate__slideOutRight': toast.closing
+    }"
+  >
+    <div class="app-toast-header">
+      <span>
+        <i [ngClass]="toastIcons[toast.type]"></i> {{ toast.type }}
+      </span>
+      <span>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="removeToast(i)"
+        ></button>
+      </span>
+    </div>
+    <div class="app-toast-body">
+      {{ toast.message }}
+    </div>
+  </div>
+</div>
