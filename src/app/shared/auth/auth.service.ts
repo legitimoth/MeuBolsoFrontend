@@ -47,8 +47,9 @@ export class AuthService {
         return true;
       })
     ).subscribe({
-      next: (isReady) => {
-      this.readySubject.next(isReady)
+      next: async (isReady) => {
+        await firstValueFrom(this.token$.pipe(filter(token => !!token)));
+        this.readySubject.next(isReady)
       },
       error: (err) => {
         console.error('Erro ao verificar registro:', err);
