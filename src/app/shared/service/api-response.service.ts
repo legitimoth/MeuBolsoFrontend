@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import {firstValueFrom, Observable, throwError} from 'rxjs';
 import {ToastService} from '../toast/toast.service';
+import {env} from '@env/environment';
 
 interface ApiResponse<T> {
   success: boolean;
@@ -14,7 +15,6 @@ interface ApiResponse<T> {
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly baseUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient, private toast: ToastService) {}
 
@@ -43,12 +43,12 @@ export class ApiService {
   }
 
   async get<T>(endpoint: string): Promise<T> {
-    const request = this.http.get<ApiResponse<T>>(`${this.baseUrl}/${endpoint}`);
+    const request = this.http.get<ApiResponse<T>>(`${env.apiUrl}/${endpoint}`);
     return this.handleRequest<T>(request);
   }
 
   async post<T>(endpoint: string, payload: T): Promise<T> {
-    const request = this.http.post<ApiResponse<T>>(`${this.baseUrl}/${endpoint}`, payload);
+    const request = this.http.post<ApiResponse<T>>(`${env.apiUrl}/${endpoint}`, payload);
     return this.handleRequest<T>(request);
   }
 }

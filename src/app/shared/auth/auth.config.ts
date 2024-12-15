@@ -1,10 +1,11 @@
 import {AuthConfig} from '@auth0/auth0-angular';
+import {env} from '@env/environment';
 
 export const authConfig: AuthConfig = {
-  domain: 'thbts.us.auth0.com',
-  clientId: 'mrXLnH9uJpBkQRBy1AD6J63eXO4Thr6r',
+  domain: env.auth0.domain,
+  clientId: env.auth0.clientId,
   authorizationParams: {
-    audience: 'meu-bolso-api',
+    audience: env.auth0.audience,
     redirect_uri: window.location.origin
   }
 };

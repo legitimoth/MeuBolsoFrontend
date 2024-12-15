@@ -20,8 +20,8 @@ export class NavbarComponent {
     authService.user$.subscribe(user => this.user = user);
   }
 
-  logout(): void {
-    this.authService.logout();
+  async logout(): Promise<void> {
+    await this.authService.logout();
   }
 
   logoutMessage(): string {

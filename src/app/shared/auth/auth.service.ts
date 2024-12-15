@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService as Auth0Service, User } from '@auth0/auth0-angular';
 import {Observable, firstValueFrom, filter, switchMap, BehaviorSubject} from 'rxjs';
 import { ApiService } from '../service/api-response.service';
+import { env } from '@env/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class AuthService {
     this.user$.pipe(
       filter(user => !!user),
       switchMap(async (user) => {
-        if(!user['meuBolsoId']) {
+        if(!user[env.usuarioId]) {
           await this.registrar(user);
           await this.refreshToken();
         }
@@ -72,7 +73,7 @@ export class AuthService {
   private monitorarToken(): void {
     this.auth0Service
       .getAccessTokenSilently({
-        authorizationParams: { audience: 'meu-bolso-api' },
+        authorizationParams: { audience: env.auth0.audience },
       })
       .subscribe({
         next: (token) => {
@@ -90,7 +91,7 @@ export class AuthService {
       const token = await firstValueFrom(
         this.auth0Service.getAccessTokenSilently({
           cacheMode: 'off',
-          authorizationParams: { audience: 'meu-bolso-api' },
+          authorizationParams: { audience: env.auth0.audience },
         })
       );
       this.tokenSubject.next(token);
