@@ -23,6 +23,7 @@
       "ES2022",
       "dom"
     ],
+    "baseUrl": "./",
     "paths": {
       "@env/*": ["src/environments/*"]
     }
